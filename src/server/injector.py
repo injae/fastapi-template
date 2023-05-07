@@ -1,5 +1,8 @@
-from dependency_injector import containers, providers
+from typing import Annotated
 
+from dependency_injector import containers, providers
+from dependency_injector.wiring import Provide
+from fastapi import Depends
 from server.services.redis import RedisConfig, RedisService, redis_session
 
 
@@ -12,3 +15,6 @@ class Container(containers.DeclarativeContainer):
     redis = providers.Resource(redis_session, RedisConfig())
 
     redis_service = providers.Factory(RedisService, redis)
+
+
+RedisService = Annotated[RedisService, Depends(Provide[Container.redis_service])]
