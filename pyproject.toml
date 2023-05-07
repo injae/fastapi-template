@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "fastapi-template"
+version = "0.1.0"
+description = ""
+authors = ["injae <8687lee@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "server",  from ="src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.95.1"
+#dependency-injector = {extras = ["yaml"], version = "^4.41.0"}
+dependency-injector = {extras = ["yaml"], git = "https://github.com/injae/python-dependency-injector.git"}
+loguru = "^0.7.0"
+gunicorn = "^20.1.0"
+uvicorn = "^0.22.0"
+redis = {extras = ["hiredis"], version = "^4.5.4"}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.1"
+ruff = "^0.0.265"
+black = "^23.3.0"
+mypy = "^1.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+server="src.server.app:app"
+
+
+[tool.ruff]
+show-source=true
+select=["ALL"]
+ignore=["D"]
