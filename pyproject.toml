@@ -11,7 +11,7 @@ packages = [{include = "server",  from ="src"}]
 python = "^3.11"
 fastapi = "^0.95.1"
 #dependency-injector = {extras = ["yaml"], version = "^4.41.0"}
-dependency-injector = {extras = ["yaml"], git = "https://github.com/injae/python-dependency-injector.git"}
+dependency-injector = {extras = ["yaml"], git = "https://github.com/injae/python-dependency-injector.git", branch= "master" }
 loguru = "^0.7.0"
 gunicorn = "^20.1.0"
 uvicorn = "^0.22.0"
