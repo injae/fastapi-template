@@ -1,8 +1,7 @@
-from collections.abc import AsyncIterator, Awaitable
+from collections.abc import AsyncIterator
 from typing import Self
 
 from pydantic.dataclasses import dataclass
-
 from redis import asyncio as aioredis
 
 
