@@ -1,11 +1,8 @@
 FROM python:3.11.3-slim-bullseye as base
 
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=off \
-    PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100
+ENV DEBIAN_FRONTEND="noninteractive"
 
+# hadolint ignore=DL3008
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
        curl \
@@ -14,6 +11,13 @@ RUN apt-get update \
 
 
 FROM base as builder
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100
+
 ARG POETRY_VERSION=1.3.2
 
 RUN pip install --no-cache-dir poetry==$POETRY_VERSION
@@ -22,6 +26,7 @@ COPY ./pyproject.toml ./poetry.lock /app/
 
 WORKDIR /app
 
+# hadolint ignore=SC2094
 RUN poetry export -f requirements.txt --without-hashes --no-interaction --no-ansi > requirements.txt
 
 FROM base as final
