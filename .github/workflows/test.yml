@@ -1,0 +1,30 @@
+name: CI
+on: push
+
+jobs:
+  ci:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        poetry-version: ["1.3.2"]
+        os: [ubuntu-18.04, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run image
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+
+      - name: Run Install Dependencies
+        run: poetry install 
+
+      - name: Run Tests And Coverage
+        run: poetry run pytest --cov-report term-missing --cov .
+
+      - name: Run Lint
+        run: poetry run ruff check .
