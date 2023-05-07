@@ -8,7 +8,7 @@ readme = "README.md"
 packages = [{include = "server",  from ="src"}]
 
 [tool.poetry.dependencies]
-python = ">=3.8"
+python = "^3.11"
 fastapi = "^0.95.1"
 #dependency-injector = {extras = ["yaml"], version = "^4.41.0"}
 dependency-injector = {extras = ["yaml"], git = "https://github.com/injae/python-dependency-injector.git", branch= "master" }
