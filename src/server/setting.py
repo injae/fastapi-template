@@ -1,5 +1,4 @@
 from pydantic import BaseSettings
-
 from server.services.redis import RedisConfig
 
 
